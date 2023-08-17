@@ -1,14 +1,25 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mardodichat/states/chat.dart';
 import 'package:mardodichat/states/create_new_account.dart';
+import 'package:mardodichat/utility/app_snackbar.dart';
 import 'package:mardodichat/widgets/widget_button.dart';
 import 'package:mardodichat/widgets/widget_form.dart';
 import 'package:mardodichat/widgets/widget_image.dart';
 import 'package:mardodichat/widgets/widget_text.dart';
 import 'package:mardodichat/widgets/widget_text_button.dart';
 
-class Authen extends StatelessWidget {
+class Authen extends StatefulWidget {
   const Authen({super.key});
+
+  @override
+  State<Authen> createState() => _AuthenState();
+}
+
+class _AuthenState extends State<Authen> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +47,14 @@ class Authen extends StatelessWidget {
                         height: 16,
                       ),
                       WidgetForm(
+                        textEditingController: emailController,
                         hint: 'Email :',
                       ),
                       SizedBox(
                         height: 16,
                       ),
                       WidgetForm(
+                        textEditingController: passwordController,
                         obsecu: true,
                         hint: 'Password :',
                       ),
@@ -52,7 +65,31 @@ class Authen extends StatelessWidget {
                         width: 250,
                         child: WidgetButton(
                           label: 'Login',
-                          pressFunc: () {},
+                          pressFunc: () async {
+                            if ((emailController.text.isEmpty) ||
+                                (passwordController.text.isEmpty)) {
+                              AppSnackbar(
+                                      title: 'Have Space', message: 'Fill all')
+                                  .errorSnackbar();
+                            } else {
+                              await FirebaseAuth.instance
+                                  .signInWithEmailAndPassword(
+                                      email: emailController.text,
+                                      password: passwordController.text)
+                                  .then((value) {
+                                Get.offAll(Chat());
+                                AppSnackbar(
+                                        title: 'Login Success',
+                                        message: 'Welcome')
+                                    .normalSnackbar();
+                              }).catchError((onError) {
+                                AppSnackbar(
+                                        title: onError.code,
+                                        message: onError.message)
+                                    .errorSnackbar();
+                              });
+                            }
+                          },
                         ),
                       ),
                     ],
