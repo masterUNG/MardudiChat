@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mardodichat/models/user_model.dart';
@@ -81,10 +82,16 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
                                     password: passwordController.text)
                                 .then((value) async {
                               String uid = value.user!.uid;
+
+                              String? token =
+                                  await FirebaseMessaging.instance.getToken();
+
                               UserModel model = UserModel(
                                   email: emailController.text,
                                   name: nameController.text,
-                                  password: passwordController.text);
+                                  password: passwordController.text,
+                                  uid: uid,
+                                  token: token ?? '');
 
                               await FirebaseFirestore.instance
                                   .collection('user')
