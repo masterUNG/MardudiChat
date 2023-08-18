@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -50,7 +52,7 @@ class _AuthenState extends State<Authen> {
                         textEditingController: emailController,
                         hint: 'Email :',
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 16,
                       ),
                       WidgetForm(
@@ -58,7 +60,7 @@ class _AuthenState extends State<Authen> {
                         obsecu: true,
                         hint: 'Password :',
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 16,
                       ),
                       SizedBox(
@@ -77,7 +79,7 @@ class _AuthenState extends State<Authen> {
                                       email: emailController.text,
                                       password: passwordController.text)
                                   .then((value) {
-                                Get.offAll(Chat());
+                                Get.offAll(const Chat());
                                 AppSnackbar(
                                         title: 'Login Success',
                                         message: 'Welcome')
@@ -103,14 +105,14 @@ class _AuthenState extends State<Authen> {
       bottomSheet: WidgetTextButton(
         label: 'Create New Account',
         pressFunc: () {
-          Get.to(CreateNewAccount());
+          Get.to(const CreateNewAccount());
         },
       ),
     );
   }
 
   Row displayHead() {
-    return Row(
+    return const Row(
       children: [
         WidgetImage(
           size: 50,

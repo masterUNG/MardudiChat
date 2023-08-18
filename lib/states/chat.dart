@@ -7,7 +7,6 @@ import 'package:mardodichat/utility/app_controller.dart';
 import 'package:mardodichat/utility/app_service.dart';
 import 'package:mardodichat/widgets/widget_form.dart';
 import 'package:mardodichat/widgets/widget_icon_button.dart';
-import 'package:mardodichat/widgets/widget_text.dart';
 
 class Chat extends StatefulWidget {
   const Chat({super.key});
@@ -26,20 +25,22 @@ class _ChatState extends State<Chat> {
     super.initState();
     AppService().findUserModel();
     AppService().readAllChat();
+    AppService().aboutNoti();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Obx(() {
         return appController.chatModels.isEmpty
             ? const SizedBox()
             : ListView.builder(
                 itemCount: appController.chatModels.length,
                 itemBuilder: (context, index) => BubbleSpecialThree(
-                  text: '${appController.chatModels[index].mapSent["name"]}\n${appController.chatModels[index].message}',
+                  text:
+                      '${appController.chatModels[index].mapSent["name"]}\n${appController.chatModels[index].message}',
                   color: Colors.grey.shade400,
-                 
                 ),
               );
       }),

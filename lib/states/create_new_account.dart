@@ -25,7 +25,7 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: WidgetText(data: 'Create New Account'),
+        title: const WidgetText(data: 'Create New Account'),
       ),
       body: GestureDetector(
         onTap: () {
@@ -46,21 +46,21 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
                       ),
                       WidgetForm(
                         textEditingController: nameController,
-                        labelWidget: WidgetText(data: 'Display Name :'),
+                        labelWidget: const WidgetText(data: 'Display Name :'),
                       ),
                       const SizedBox(
                         height: 16,
                       ),
                       WidgetForm(
                         textEditingController: emailController,
-                        labelWidget: WidgetText(data: 'Email :'),
+                        labelWidget: const WidgetText(data: 'Email :'),
                       ),
                       const SizedBox(
                         height: 16,
                       ),
                       WidgetForm(
                         textEditingController: passwordController,
-                        labelWidget: WidgetText(data: 'Passowrd :'),
+                        labelWidget: const WidgetText(data: 'Passowrd :'),
                       ),
                       const SizedBox(
                         height: 16,
